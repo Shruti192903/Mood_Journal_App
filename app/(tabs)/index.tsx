@@ -5,7 +5,7 @@ import {
   Dimensions,
   LayoutAnimation,
   Platform,
-  Pressable, // Import Pressable for better interaction
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -15,7 +15,7 @@ import {
   UIManager,
   View,
 } from 'react-native';
-import Svg, { Path } from 'react-native-svg'; // Import components for new icon
+import Svg, { Path } from 'react-native-svg';
 
 // Enable LayoutAnimation for Android
 if (
@@ -43,7 +43,6 @@ type Entry = {
   sentiment: Sentiment;
 };
 
-// --- New Icon Component ---
 const GoldBarIcon = () => (
   <Svg width="32" height="32" viewBox="0 0 24 24" fill="none">
     <Path
@@ -190,7 +189,6 @@ export default function HomeScreen() {
       else if (sentimentWords.veryNegative && sentimentWords.veryNegative[word]) score += sentimentWords.veryNegative[word];
     }
     
-    // Updated colors for "Gold" theme
     if (score >= 10) {
       return { title: 'Extremely Positive', score, color: '#F9D423', emoji: '🌟', insight: "Incredible energy! You're absolutely glowing!" };
     } else if (score >= 3) {
@@ -263,7 +261,7 @@ export default function HomeScreen() {
               value={moodText}
               onChangeText={(t) => { setMoodText(t); if (error) setError(''); if (currentSentiment) setCurrentSentiment(null); }}
               placeholder="Type your thoughts here..."
-              placeholderTextColor="rgba(234, 234, 234, 0.3)" // Translucent light text
+              placeholderTextColor="rgba(234, 234, 234, 0.3)" 
               multiline
             />
             <View style={styles.inputFooter}>
@@ -289,7 +287,7 @@ export default function HomeScreen() {
             onPress={handleAddEntry}
           >
             <LinearGradient
-              colors={['#FFFFFF', '#EAEAEA']} // White/Light Grey Gradient
+              colors={['#FFFFFF', '#EAEAEA']} 
               start={{ x: 0.5, y: 0 }}
               end={{ x: 0.5, y: 1 }}
               style={styles.buttonGradient}
@@ -335,11 +333,10 @@ export default function HomeScreen() {
   );
 }
 
-// --- New "Gold Standard" Stylesheet ---
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#1C1C1E', // Very Dark Grey/Black
+    backgroundColor: '#1C1C1E',
   },
   gradientBackground: {
     flex: 1,
@@ -351,7 +348,7 @@ const styles = StyleSheet.create({
   },
   particle: {
     position: 'absolute',
-    backgroundColor: 'rgba(249, 212, 35, 0.3)', // Gold particles
+    backgroundColor: 'rgba(249, 212, 35, 0.3)', 
     borderRadius: 5,
   },
   container: {
@@ -369,17 +366,17 @@ const styles = StyleSheet.create({
   title: { 
     fontSize: 32, 
     fontWeight: '700', 
-    color: '#F9D423', // Bright Gold
+    color: '#F9D423', 
   },
   subtitle: { 
     fontSize: 16, 
-    color: '#8E8E93', // Mid Gray
+    color: '#8E8E93', 
     marginBottom: 20, 
     textAlign: 'center' 
   },
   errorContainer: {
     width: '100%',
-    backgroundColor: 'rgba(255, 59, 48, 0.1)', // Translucent Red
+    backgroundColor: 'rgba(255, 59, 48, 0.1)', 
     borderColor: 'rgba(255, 59, 48, 0.2)',
     borderWidth: 1,
     padding: 10, 
@@ -388,7 +385,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   errorText: { 
-    color: '#FF8A8A', // Soft Red
+    color: '#FF8A8A', 
     fontSize: 14, 
     textAlign: 'center',
   },
@@ -408,22 +405,22 @@ const styles = StyleSheet.create({
     gap: 8 
   },
   suggestionChip: { 
-    backgroundColor: '#2C2C2E', // Dark Chip
+    backgroundColor: '#2C2C2E', 
     borderWidth: 1,
-    borderColor: '#48484A', // Gray border
+    borderColor: '#48484A', 
     borderRadius: 20, 
     paddingVertical: 8, 
     paddingHorizontal: 12, 
   },
   suggestionChipText: { 
-    color: '#AEAEB2', // Light Grey text
+    color: '#AEAEB2', 
     fontSize: 12, 
     fontWeight: '500' 
   },
 
   inputCard: { 
     width: '100%', 
-    backgroundColor: '#2C2C2E', // Dark Card
+    backgroundColor: '#2C2C2E',
     borderRadius: 16, 
     padding: 15, 
     marginBottom: 20,
@@ -442,7 +439,7 @@ const styles = StyleSheet.create({
     marginBottom: 10 
   },
   input: { 
-    color: '#FFFFFF', // White text
+    color: '#FFFFFF', 
     minHeight: 100, 
     fontSize: 16, 
     textAlignVertical: 'top' 
@@ -463,7 +460,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   clearButtonText: { 
-    color: '#000000', // Black text
+    color: '#000000', 
     fontWeight: '500',
     fontSize: 14,
   },
@@ -477,7 +474,7 @@ const styles = StyleSheet.create({
     height: 50, 
     borderRadius: 25, 
     marginBottom: 20,
-    shadowColor: '#FFF', // White/Gold Shadow
+    shadowColor: '#FFF', 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
@@ -493,14 +490,14 @@ const styles = StyleSheet.create({
     borderColor: '#F0F0F0'
   },
   buttonText: { 
-    color: '#000000', // Black text for contrast
+    color: '#000000', 
     fontSize: 18, 
     fontWeight: '700' 
   },
 
   resultCard: { 
     width: '100%', 
-    backgroundColor: '#2C2C2E', // Dark Card
+    backgroundColor: '#2C2C2E', 
     borderRadius: 16, 
     padding: 20, 
     marginBottom: 20, 
@@ -532,11 +529,11 @@ const styles = StyleSheet.create({
   },
   resultScore: { 
     fontSize: 14, 
-    color: '#8E8E93' // Mid Gray
+    color: '#8E8E93' 
   },
   resultInsight: { 
     fontSize: 16, 
-    color: '#EAEAEA', // Light Text
+    color: '#EAEAEA', 
     lineHeight: 22 
   },
 
@@ -550,7 +547,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   historyToggleText: { 
-    color: '#000000', // Black text
+    color: '#000000', 
     fontWeight: '500',
     fontSize: 14,
     textAlign: 'center'
@@ -560,7 +557,7 @@ const styles = StyleSheet.create({
     width: '100%' 
   },
   entryItem: { 
-    backgroundColor: '#2C2C2E', // Dark Card
+    backgroundColor: '#2C2C2E', 
     padding: 15, 
     borderRadius: 12, 
     marginBottom: 10, 
