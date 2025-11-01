@@ -52,3 +52,8 @@ To run this app locally:
    npx expo start
    ```
 4. Scan the QR code with your Expo Go app on your mobile device.
+
+---
+
+## 🖼️ App Demo Screenshot
+[![App Demo Screenshot](https://github.com/Shruti192903/Mood_Journal_App/blob/main/Result.jpg)
