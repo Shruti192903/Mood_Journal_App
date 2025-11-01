@@ -35,7 +35,7 @@ To run this app locally:
 1. Clone the repository:
 
    ```bash
-   git clone [Your GitHub/GitLab URL Here]
+   git clone https://github.com/Shruti192903/Mood_Journal_App
    cd mood-journal-app
    ```
 
