@@ -6,7 +6,6 @@ import {
   LayoutAnimation,
   Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,9 +14,8 @@ import {
   UIManager,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
-
-// Enable LayoutAnimation for Android
 if (
   Platform.OS === 'android' &&
   UIManager.setLayoutAnimationEnabledExperimental
@@ -25,7 +23,6 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-// --- Get Screen Dimensions for Particles ---
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type Sentiment = {
@@ -79,7 +76,6 @@ const sentimentWords: Record<string, Record<string, number>> = {
   veryNegative: { 'awful': -5, 'dreadful': -5, 'devastating': -5, 'stressed': -5, 'depressed': -5, 'lonely': -5 },
 };
 
-// --- Refreshed Suggestions ---
 const SUGGESTIONS = [
   "Need some rest and quiet time.",
   "Didn’t sleep much last night.",
@@ -88,17 +84,15 @@ const SUGGESTIONS = [
   "Grateful for small things.",
 ];
 
-// --- Particle Component ---
 const Particle = memo(() => {
   const anim = useRef(new Animated.Value(0)).current;
   
-  // Use useState to set random values once
   const [config] = useState(() => {
     const size = Math.random() * 3 + 2;
     return {
       size,
       startX: Math.random() * screenWidth,
-      duration: Math.random() * 5000 + 8000, // 8-13 seconds
+      duration: Math.random() * 5000 + 8000,
       delay: Math.random() * 8000,
     };
   });
@@ -118,12 +112,12 @@ const Particle = memo(() => {
 
   const translateY = anim.interpolate({
     inputRange: [0, 1],
-    outputRange: [screenHeight + 20, -20], // Start from bottom, move to top
+    outputRange: [screenHeight + 20, -20], 
   });
 
   const opacity = anim.interpolate({
     inputRange: [0, 0.2, 0.8, 1],
-    outputRange: [0, 1, 1, 0], // Fade in and out
+    outputRange: [0, 1, 1, 0], 
   });
 
   return (
@@ -142,7 +136,6 @@ const Particle = memo(() => {
   );
 });
 
-// --- Particle Container ---
 const ParticleContainer = memo(() => (
   <View style={styles.particleContainer}>
     {Array.from({ length: 30 }).map((_, i) => (
@@ -158,7 +151,7 @@ const EntryItem = memo(({ item }: { item: Entry }) => {
     <View style={[styles.entryItem, { borderLeftColor: sentiment.color }]}>
       <View style={styles.entryHeader}>
         <Text style={[styles.entryTitle, { color: sentiment.color }]}>{sentiment.title}</Text>
-        <Text style={[styles.entryScore, { color: sentiment.color }]}>{sentiment.score}</Text>
+        <Text style={styles.entryEmojiSmall}>{sentiment.emoji}</Text> 
       </View>
       <Text style={styles.entryText}>{item.text}</Text>
       <Text style={styles.entryDate}>{item.date}</Text>
@@ -173,7 +166,6 @@ export default function HomeScreen() {
   const [error, setError] = useState('');
   const [showHistory, setShowHistory] = useState(false);
 
-  // Animate layout changes when list/items appear
   useEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
   }, [showHistory, currentSentiment, entries.length]);
@@ -233,7 +225,7 @@ export default function HomeScreen() {
         >
           <View style={styles.titleContainer}>
             <GoldBarIcon />
-            <Text style={styles.title}>MoodFlow</Text>
+            <Text style={styles.title}>Mood Journal App</Text>
           </View>
           <Text style={styles.subtitle}>Express yourself, discover your vibe ✨</Text>
 
@@ -261,7 +253,7 @@ export default function HomeScreen() {
               value={moodText}
               onChangeText={(t) => { setMoodText(t); if (error) setError(''); if (currentSentiment) setCurrentSentiment(null); }}
               placeholder="Type your thoughts here..."
-              placeholderTextColor="rgba(234, 234, 234, 0.3)" 
+              placeholderTextColor="rgba(142, 142, 147, 0.4)" 
               multiline
             />
             <View style={styles.inputFooter}>
@@ -336,11 +328,11 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#0A0A0A', 
   },
   gradientBackground: {
     flex: 1,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#0A0A0A',
   },
   particleContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -348,7 +340,7 @@ const styles = StyleSheet.create({
   },
   particle: {
     position: 'absolute',
-    backgroundColor: 'rgba(249, 212, 35, 0.3)', 
+    backgroundColor: 'rgba(255, 215, 0, 0.3)', 
     borderRadius: 5,
   },
   container: {
@@ -366,7 +358,7 @@ const styles = StyleSheet.create({
   title: { 
     fontSize: 32, 
     fontWeight: '700', 
-    color: '#F9D423', 
+    color: '#FFD700', 
   },
   subtitle: { 
     fontSize: 16, 
@@ -405,7 +397,7 @@ const styles = StyleSheet.create({
     gap: 8 
   },
   suggestionChip: { 
-    backgroundColor: '#2C2C2E', 
+    backgroundColor: '#1C1C1E', 
     borderWidth: 1,
     borderColor: '#48484A', 
     borderRadius: 20, 
@@ -420,16 +412,16 @@ const styles = StyleSheet.create({
 
   inputCard: { 
     width: '100%', 
-    backgroundColor: '#2C2C2E',
+    backgroundColor: '#1C1C1E', 
     borderRadius: 16, 
     padding: 15, 
     marginBottom: 20,
     borderWidth: 1,
     borderColor: '#48484A',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+    shadowColor: '#FFD700', 
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
     elevation: 5,
   },
   inputLabel: { 
@@ -439,7 +431,7 @@ const styles = StyleSheet.create({
     marginBottom: 10 
   },
   input: { 
-    color: '#FFFFFF', 
+    color: '#FFFFFF',
     minHeight: 100, 
     fontSize: 16, 
     textAlignVertical: 'top' 
@@ -460,7 +452,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   clearButtonText: { 
-    color: '#000000', 
+    color: '#000000',
     fontWeight: '500',
     fontSize: 14,
   },
@@ -476,7 +468,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     shadowColor: '#FFF', 
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.5,
     shadowRadius: 10,
     elevation: 10,
   },
@@ -487,7 +479,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#F0F0F0'
+    borderColor: '#EAEAEA'
   },
   buttonText: { 
     color: '#000000', 
@@ -497,7 +489,7 @@ const styles = StyleSheet.create({
 
   resultCard: { 
     width: '100%', 
-    backgroundColor: '#2C2C2E', 
+    backgroundColor: '#1C1C1E', 
     borderRadius: 16, 
     padding: 20, 
     marginBottom: 20, 
@@ -557,7 +549,7 @@ const styles = StyleSheet.create({
     width: '100%' 
   },
   entryItem: { 
-    backgroundColor: '#2C2C2E', 
+    backgroundColor: '#1C1C1E', 
     padding: 15, 
     borderRadius: 12, 
     marginBottom: 10, 
@@ -580,6 +572,9 @@ const styles = StyleSheet.create({
     fontSize: 14, 
     fontWeight: '700',
     color: '#EAEAEA',
+  },
+  entryEmojiSmall: { 
+    fontSize: 22,
   },
   entryText: { 
     fontSize: 14, 
